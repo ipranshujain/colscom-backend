@@ -17,8 +17,8 @@ app.use(cors());
 app.use(express.json());
 
 // used to access static files like images, css files etc.
-app.use(express.static(path.resolve() + "/public"));
-app.use(express.static(path.join(path.resolve(), "./frontend/build")));
+// app.use(express.static(path.resolve() + "/public"));
+app.use(express.static(path.join(path.resolve(), "./client/build")));
 
 app.use("/blog", BlogRouter);
 app.use("/syllabus", SyllabusRouter);
@@ -37,7 +37,7 @@ app.get("/fun", (req, res) => {
 
 // to direct any route to react builded folder's index.html file.
 app.get("*", (req, res) => {
-  res.sendFile(path.join(path.resolve(), "./frontend/build/index.html"));
+  res.sendFile(path.join(path.resolve(), "./client/build/index.html"));
 });
 // for starting server.
 const PORT = process.env.PORT || 5000;
