@@ -1,0 +1,17 @@
+<%- include('../partials/header.ejs') %>
+<div class="add-blog">      
+    <form action="/blogs/add-blog" method="POST">
+        <label for="title">Enter Title</label>
+        <input type="name" id="title" name="title"/>
+        <label for="description">Enter Description</label>
+        <textarea class="last-input"type="name" id="description" name="description">
+        </textarea>
+        <!-- <label for="category">Enter Category</label>
+        <input type="name" id="category" name="category"/> -->
+        <button>Save</button>
+    </form>
+</div>
+<script>
+    alert("I am alive!")
+</script>
+<%- include('../partials/footer.ejs') %>

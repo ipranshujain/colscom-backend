@@ -1,0 +1,81 @@
+.form-container{
+ 
+    margin-top: 40px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   font-size: 23px;
+   margin : 40px; 
+  }
+  .form-title{
+    text-transform: capitalize;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--link-color);
+  }
+  
+  .form input, textarea{
+    margin-top: 5px;
+    padding: 3px;
+    background-color: inherit;
+    font-size: inherit;
+    border-width: 0px;
+    border-bottom: 2px solid var(--link-color);
+    color: var(--primary-color);
+    font-family: inherit;
+  }
+  .form input:focus, textarea:focus{
+    outline: none;
+  }
+  .form input::placeholder, textarea::placeholder{
+    color: inherit;
+    opacity: 0.7;
+  }
+  
+  .form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .form label{
+    /* text-align: center; */
+    margin-top: 15px;
+    /* margin-left: 15px; */
+    font-style: italic;
+    color: var(--link-color);
+  }
+  .form .select-category{
+    font-size: 14px;
+    margin-top: 5px;
+  
+    font-weight: bold;
+    color: black;
+  }
+  .form button{
+    background-color: var(--link-color);
+    font-size: inherit;
+    border: 2px solid black;
+    margin-top: 10px;
+    color: var(--primary-background);
+    font-family: inherit;
+    font-weight: bold;
+  }
+  .form .inp{
+    display: inherit;
+    flex-direction: inherit;
+  }
+  
+  .input-error{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: red;
+    font-size: 20px;
+  }
+  .input-error > *{
+    padding-left: 10px;
+    align-self: center;
+  }
+  

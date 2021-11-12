@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&family=IBM+Plex+Serif:ital@0;1&display=swap');
+:root{
+  --primary-font-family: 'IBM Plex Mono',monospace;
+  /* --primary-font-family: 'IBM Plex Sans',monospace;  */
+
+  --primary-background:black;
+  --primary-color:white;
+  --link-color:  rgb(0, 192, 64);
+}
+.colourful{
+  --primary-font-family: 'IBM Plex Mono',monospace;
+  /* --primary-font-family: 'IBM Plex Sans',monospace;  */
+
+  --primary-background:rgb(215, 255, 237);
+  --primary-color: #00203FFF;
+  --link-color:  #0270d6;
+}
+.light{
+  --primary-font-family: monospace; 
+  /* --primary-font-family: 'IBM Plex Sans',monospace;  */
+
+  --primary-background:rgb(255, 255, 255);
+  --primary-color:black;
+  --link-color:  #000000;
+}
+.black{
+  --primary-font-family: 'IBM Plex Mono', monospace; 
+  /* --primary-font-family: 'IBM Plex Sans',monospace;  */
+
+  --primary-background:black;
+  --primary-color:white;
+  --link-color:  rgb(231, 208, 0);
+}
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--primary-background);
+  color: var(--primary-color);
+  font-family: var(--primary-font-family);
+  display: relative;
+  min-height: 90vh;
+}
+
+a{
+  color:var(--primary-color);
+  text-decoration: none;
+  display: block;
+}

@@ -1,0 +1,125 @@
+
+.backend-home{
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--primary-color);
+  font-size: 30px;
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 810px;
+  width: 90%;
+  margin: auto;
+  height: calc(100vh - 50px);
+}
+.backend-home>*{
+  width: 100%;
+  align-self: center;
+}
+.backend-home .come>span{
+  font-style: italic;
+  color: var(--link-color);
+}
+
+.all-blogs{
+  margin: 20px;
+  font-family: monospace;
+}
+
+.all-blogs-head{
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--link-color);
+}
+
+.all-blogs-list{
+  margin: 10px;
+  background: white;
+  color: black;
+cursor: pointer;
+}
+.all-blogs-side{
+  display: flex;
+}
+.all-blogs-side>*{
+  background-color: black;
+  color: white;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: lighter;
+  padding: 3px;  
+}
+.all-element{
+  border: 1px solid var(--primary-color);
+  padding: 10px;
+}
+.all-element> *{
+  margin: 6px;
+  /* border-bottom: 1px solid black; */
+}
+.all-blogs-title{
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+.all-blogs-info{
+  font-size: 14px;
+}
+.all-blogs-description{
+  font-size: 14px;
+}
+
+.all-blogs-category{
+  display: flex;
+}
+.all-blogs-category >*{
+  padding: 3px;
+  border-radius: 3px;
+  margin: 3px;
+  font-size: 13px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background: rgb(10, 10, 10);
+  color: rgb(255, 255, 255);
+}
+
+.all-blogs-like{
+  font-size: 15px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+
+.all-syllabus-title, .all-book-title{
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.all-syllabus-side, .all-book-side{
+  display: flex;
+}
+.all-syllabus-side>*, .all-book-side>*{
+  background-color: black;
+  color: white;
+  margin: 5px;
+  font-size: 14px;
+  font-weight: lighter;
+  padding: 3px;  
+}
+
+.log-as{
+  position: fixed;
+  width: fit-content;
+  background-color: var(--primary-color);
+  color: var(--primary-background);
+  bottom: 0;
+  right: 0;
+  font-size: 15px;
+  padding: 2px;
+  z-index: 1;
+}
