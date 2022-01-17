@@ -1,31 +1,29 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import _ from "lodash";
 import { syllabusShape } from "../../utils/inputData";
 import { deleteAction } from "../../utils/actionUtil";
+import { Loading } from "../Loading";
+import { useElements } from "../../hooks/customHooks";
+import "./Syllabus.scss";
+
 export default function AllSyllabus() {
-  const [syllabus, setSyllabus] = useState([]);
-  const [direct, setDirect] = useState({});
-  useEffect(() => {
-    axios
-      .get("/syllabus/all-syllabus")
-      .then((data) => {
-        setSyllabus(data.data);
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-  }, []);
+  const { items, direct, setDirect, history, counter, setCounter } =
+    useElements({ url: "/syllabus/all-syllabus" });
 
   if (!_.isEmpty(direct)) {
     return <Redirect to={direct} />;
   }
+  if (items === null) {
+    return <Loading />;
+  }
+  if (items && items.length === 0) {
+    return <Loading>No Data Found</Loading>;
+  }
   return (
-    <div className="all-blogs">
+    <div className="all-elements" style={{ marginTop: 20 }}>
       <div className="all-blogs-head">All Syllabus</div>
       <div className="all-blogs-list">
-        {syllabus.map((syll, idx) => {
+        {items.map((syll, idx) => {
           return (
             <div className="all-element" key={idx}>
               <div className="all-syllabus-title">
@@ -64,7 +62,10 @@ export default function AllSyllabus() {
                       deleteAction(
                         syllabusShape.title,
                         syll._id,
-                        "/all-syllabus"
+                        "/all-syllabus",
+                        history,
+                        counter,
+                        setCounter
                       );
                     }}
                   >
@@ -73,7 +74,9 @@ export default function AllSyllabus() {
                 </div>
               </div>
               <div className="syllabus-link" style={{ fontSize: 17 }}>
-                <a style={{color: "black"}} href={syll.link}>Pdf Link: {syll.link.substr(0, 120)}...</a>
+                <a style={{ color: "black" }} href={syll.link}>
+                  Pdf Link: {syll.link.substr(0, 120)}...
+                </a>
               </div>
             </div>
           );

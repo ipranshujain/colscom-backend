@@ -1,0 +1,22 @@
+.all-syllabus-title{
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  
+  .all-syllabus-side, .all-book-side{
+    display: flex;
+  }
+  .all-syllabus-side>*, .all-book-side>*{
+    background-color: black;
+    color: white;
+    margin: 5px;
+    font-size: 14px;
+    font-weight: lighter;
+    padding: 3px;  
+  }
+  

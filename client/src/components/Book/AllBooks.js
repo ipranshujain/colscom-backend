@@ -1,31 +1,29 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import _ from "lodash";
 import { bookShape } from "../../utils/inputData";
 import { deleteAction } from "../../utils/actionUtil";
+import { Loading } from "../Loading";
+import { useElements } from "../../hooks/customHooks";
+import "./Book.scss";
+
 export default function AllBooks() {
-  const [book, setBook] = useState([]);
-  const [direct, setDirect] = useState({});
-  useEffect(() => {
-    axios
-      .get("/book/all-books")
-      .then((data) => {
-        setBook(data.data);
-      })
-      .catch((error) => {
-        console.log("Error: ", error);
-      });
-  }, []);
+  const { items, direct, setDirect, history, counter, setCounter } =
+    useElements({ url: "/book/all-books" });
 
   if (!_.isEmpty(direct)) {
     return <Redirect to={direct} />;
+  }
+  if (items === null) {
+    return <Loading />;
+  }
+  if (items && items.length === 0) {
+    return <Loading>No Data Found</Loading>;
   }
   return (
     <div className="all-blogs">
       <div className="all-blogs-head">All Books</div>
       <div className="all-blogs-list">
-        {book.map((syll, idx) => {
+        {items.map((syll, idx) => {
           return (
             <div className="all-element" key={idx}>
               <div className="all-book-title">
@@ -54,7 +52,14 @@ export default function AllBooks() {
                   </div>
                   <div
                     onClick={() => {
-                      deleteAction(bookShape.title, syll._id, "/all-books");
+                      deleteAction(
+                        bookShape.title,
+                        syll._id,
+                        "/all-books",
+                        history,
+                        counter,
+                        setCounter
+                      );
                     }}
                   >
                     🚮 Delete
@@ -79,7 +84,11 @@ export default function AllBooks() {
                 <div>Purpose: {syll.purpose}</div>
               </div>
               <div className="all-book-title">
-                <div><a style={{color: "black"}} href={syll.link}>PDF link: {syll.link.substr(0, 120)}</a></div>
+                <div>
+                  <a style={{ color: "black" }} href={syll.link}>
+                    PDF link: {syll.link.substr(0, 120)}
+                  </a>
+                </div>
               </div>
             </div>
           );

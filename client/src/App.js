@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import { Route, Switch } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -14,11 +14,13 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 
 import AuthContext from "./context/AuthContext";
+
 function App() {
   const [userData, setUserData] = useState({
     isLoggedIn: false,
     name: "",
   });
+
   useEffect(() => {
     axios
       .post("/auth/verify-token", {

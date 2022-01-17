@@ -1,10 +1,13 @@
 import { useState } from "react";
-import Select from "react-select";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import "./Element.css";
+import "./Element.scss";
 import { BiErrorCircle } from "react-icons/bi";
+import { renderInput } from "../../utils/actionUtil";
+import { convertToRaw } from "draft-js";
 export default function Element({ data, type }) {
   const [element, setElement] = useState(data);
+  const history = useHistory();
   if (type === undefined) {
     type = "update";
   }
@@ -34,31 +37,37 @@ export default function Element({ data, type }) {
     }
 
     const postObj = element.inputs.reduce((acc, curr) => {
-      acc[curr.name] = curr.value;
+      if (curr.input === "content") {
+        // console.log(curr.value);
+        acc[curr.name] = JSON.stringify(
+          convertToRaw(curr.value.getCurrentContent())
+        );
+      } else {
+        acc[curr.name] = curr.value;
+      }
       return acc;
     }, {});
     postObj.token = localStorage.getItem("userToken");
-    // console.log("User token is: ", localStorage.getItem("userToken"));
     try {
       const result = await axios.post(element[type.toLowerCase()], postObj);
       if (result && result.data) {
         console.log("Data after posting is ", result.data);
       }
       if (data.title[data.title.length - 1] === "s") {
-        window.location = `/all-${data.title}`;
+        history.push(`/all-${data.title}`);
       } else {
-        window.location = `/all-${data.title}s`;
+        history.push(`/all-${data.title}s`);
       }
     } catch (error) {
       console.log(error?.response?.data?.message);
       if (error?.response.data?.direct === "login") {
-        window.location = "/login";
+        history.push("/location");
       } else if (error?.response.data?.direct === "login") {
-        window.location = "/";
+        history.push("/");
       }
-      // console.log("Following error occured while posting: ", error);
     }
   };
+
   return (
     <div className="form-container">
       <div className="form-title"> {type + " " + element.title}</div>
@@ -70,39 +79,7 @@ export default function Element({ data, type }) {
               <label>
                 {input.label + " " + (input.required ? "(*)" : "(optional)")}
               </label>
-              {input.input === "input" ? (
-                <input
-                  type={input.type}
-                  value={input.value}
-                  placeholder={input.placeholder}
-                  onChange={(e) => {
-                    handleChange(e.target.value, idx);
-                  }}
-                />
-              ) : input.input === "textarea" ? (
-                <textarea
-                  type={input.type}
-                  value={input.value}
-                  placeholder={input.placeholder}
-                  maxLength={input.maxLength}
-                  rows={input.rows}
-                  onChange={(e) => {
-                    handleChange(e.target.value, idx);
-                  }}
-                />
-              ) : (
-                <div className="select-category">
-                  <Select
-                    options={input.options}
-                    type={input.type}
-                    value={input.value}
-                    isMulti={input.isMulti}
-                    onChange={(e) => {
-                      handleChange(e, idx);
-                    }}
-                  />
-                </div>
-              )}
+              {renderInput(input, idx, handleChange)}
               {input.error && (
                 <div className="input-error">
                   <BiErrorCircle />
@@ -112,7 +89,7 @@ export default function Element({ data, type }) {
             </div>
           );
         })}
-        <button>Done</button>
+        <button className="form-done">Done</button>
       </form>
     </div>
   );

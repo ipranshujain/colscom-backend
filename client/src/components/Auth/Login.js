@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import validator from "validator";
 import { BiErrorCircle } from "react-icons/bi";
-import "./auth.css";
+import "./auth.scss";
 export default function Login() {
   const [loginData, setLoginData] = useState({
     email: {

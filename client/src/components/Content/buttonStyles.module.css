@@ -1,0 +1,37 @@
+.button {
+    border-width: 0px;
+    cursor: pointer;
+    color: inherit;
+    position: relative;
+    background-color: inherit;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    transform: translateY(2px);
+    font-size: 20px;
+  }
+  
+  
+  .button:disabled {
+    background-color: inherit;
+    color: grey;
+  }
+  .button {
+    border-width: 0px;
+    cursor: pointer;
+    color: inherit;
+    position: relative;
+    background-color: inherit;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    /* transform: translateY(2px); */
+    font-size: 20px;
+  }
+  
+  
+  .button:disabled {
+    background-color: inherit;
+    color: grey;
+  }
+  

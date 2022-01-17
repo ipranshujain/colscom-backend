@@ -35,7 +35,19 @@ app.get("/fun", (req, res) => {
   res.json({ pranshu: "jain" });
 });
 
-// to direct any route to react builded folder's index.html file.
+import { graphqlHTTP } from "express-graphql";
+import schema from "./graphql/schema.js";
+import root from "./graphql/resolvers/index.js";
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    rootValue: root,
+    graphiql: true,
+  })
+);
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(path.resolve(), "./client/build/index.html"));
 });

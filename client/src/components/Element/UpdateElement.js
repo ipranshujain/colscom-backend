@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
-import Select from "react-select";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import _ from "lodash";
-import "./Element.css";
+import "./Element.scss";
 import { BiErrorCircle } from "react-icons/bi";
+import { renderInput } from "../../utils/actionUtil";
+import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 function transformData(unit, data) {
+  console.log("In transform data function.");
   const result = _.cloneDeep(data);
   result.inputs.map((input, i) => {
-    input.value = unit[input.name];
+    if (input.input === "content") {
+      const ss = convertFromRaw(JSON.parse(unit[input.name]));
+      input.value = EditorState.createWithContent(ss);
+    } else {
+      input.value = unit[input.name];
+    }
     return input;
   });
+  console.log("Outside transform data function.");
   return result;
 }
 export default function Element({
@@ -21,6 +30,7 @@ export default function Element({
   },
 }) {
   const [element, setElement] = useState({});
+  let history = useHistory();
   useEffect(() => {
     axios
       .get(`/${data.title}/${_id}`)
@@ -59,7 +69,14 @@ export default function Element({
     }
 
     const postObj = element.inputs.reduce((acc, curr) => {
-      acc[curr.name] = curr.value;
+      if (curr.input === "content") {
+        // console.log(curr.value);
+        acc[curr.name] = JSON.stringify(
+          convertToRaw(curr.value.getCurrentContent())
+        );
+      } else {
+        acc[curr.name] = curr.value;
+      }
       return acc;
     }, {});
     postObj.token = localStorage.getItem("userToken");
@@ -69,17 +86,17 @@ export default function Element({
       if (result && result.data) {
         console.log("Data after posting is ", result.data);
         if (data.title[data.title.length - 1] === "s") {
-          window.location = `/all-${data.title}`;
+          history.push(`/all-${data.title}`);
         } else {
-          window.location = `/all-${data.title}s`;
+          history.push(`/all-${data.title}s`);
         }
       }
     } catch (error) {
       console.log(error?.response?.data?.message);
       if (error?.response.data?.direct === "login") {
-        window.location = "/login";
+        history.push("/location");
       } else if (error?.response.data?.direct === "login") {
-        window.location = "/";
+        history.push("/");
       }
       console.log("Following error occured while posting: ", error);
     }
@@ -110,39 +127,7 @@ export default function Element({
               <label>
                 {input.label + " " + (input.required ? "(*)" : "(optional)")}
               </label>
-              {input.input === "input" ? (
-                <input
-                  type={input.type}
-                  value={input.value}
-                  placeholder={input.placeholder}
-                  onChange={(e) => {
-                    handleChange(e.target.value, idx);
-                  }}
-                />
-              ) : input.input === "textarea" ? (
-                <textarea
-                  type={input.type}
-                  value={input.value}
-                  placeholder={input.placeholder}
-                  maxLength={input.maxLength}
-                  rows={input.rows}
-                  onChange={(e) => {
-                    handleChange(e.target.value, idx);
-                  }}
-                />
-              ) : (
-                <div className="select-category">
-                  <Select
-                    options={input.options}
-                    type={input.type}
-                    value={input.value}
-                    isMulti={input.isMulti}
-                    onChange={(e) => {
-                      handleChange(e, idx);
-                    }}
-                  />
-                </div>
-              )}
+              {renderInput(input, idx, handleChange)}
               {input.error && (
                 <div className="input-error">
                   <BiErrorCircle />
@@ -152,7 +137,7 @@ export default function Element({
             </div>
           );
         })}
-        <button>Done</button>
+        <button className="form-done">Done</button>
       </form>
     </div>
   );

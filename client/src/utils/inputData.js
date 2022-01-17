@@ -1,3 +1,5 @@
+import { EditorState } from "draft-js";
+
 const categoryOptions = [
   { value: "1", label: "Web Development" },
   { value: "2", label: "Programming Languages" },
@@ -43,14 +45,14 @@ const blogShape = {
       error: false,
     },
     {
-      input: "textarea",
+      input: "content",
       label: "Enter Content",
       placeholder:
         "eg. In this blog post we will learn some basic Introduction to C++ and its features. C++ is an OOP's Programming Language and it is mainly used in creating high performance applications, operating system and games. Apart from that C++ language is used as a pillar by other languages including but not limited to JavaScript, Python etc. ",
       name: "description",
       required: true,
       rows: 10,
-      value: "",
+      value: null,
       type: "text",
       error: false,
     },

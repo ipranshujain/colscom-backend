@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { RiMenu3Line } from "react-icons/ri";
 import { BsFillSunFill } from "react-icons/bs";
-import "./Navbar.css";
+import "./Navbar.scss";
 import AuthContext from "../../context/AuthContext";
 const navbarItems = [
   {
@@ -48,6 +48,7 @@ function changeTheme(idx) {
 }
 export default function Navbar() {
   const [counter, setCounter] = useState(1);
+  let history = useHistory();
   function toggleMenu() {
     document
       .querySelector(".navbar-items")
@@ -68,7 +69,7 @@ export default function Navbar() {
       <div
         className="navbar-title"
         onClick={() => {
-          document.location = "/";
+          history.push("/");
         }}
       >
         colscom backend

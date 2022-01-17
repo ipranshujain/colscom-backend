@@ -10,7 +10,7 @@
   }
   
   .navbar .navbar-title{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     /* font-family: 'IBM Plex Mono', monospace; */
     padding-left: 20px;
     font-size: 30px;
@@ -64,6 +64,7 @@
     z-index: 1;
     height:auto;
     max-height: 500px;
+    transform: translateY(-6px);
     overflow: hidden;
     border: 1px solid var(--primary-color);
     transition: max-height 600ms ease;
