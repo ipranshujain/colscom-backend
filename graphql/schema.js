@@ -8,6 +8,7 @@ const schema = buildSchema(`
   }
 
   type Blogs{
+    _id: String!,
     title: String!,
     description: String!,
     category: [Select]!,
@@ -17,12 +18,14 @@ const schema = buildSchema(`
   }
   
   type Syllabus{
+    _id: String!,
     semester: Select!,
     branch: Select!,
     link: String!
   }
 
   type Book{
+    _id: String!,
     name: String!,
     author: String!,
     purpose: String!,
