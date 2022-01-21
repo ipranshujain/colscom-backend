@@ -7,7 +7,7 @@ const schema = buildSchema(`
     value: String!,
   }
 
-  type Blogs{
+  type Blog{
     _id: String!,
     title: String!,
     description: String!,
@@ -35,9 +35,12 @@ const schema = buildSchema(`
   }
 
   type Query {
-    blogs: [Blogs]!,
+    blogs: [Blog]!,
     syllabus: [Syllabus]!,
     books: [Book]!,
+    blog(id: ID!): Blog!,
+    syllabusOne(id: ID!): Syllabus!
+    book(id: ID!): Book!
   }
 `);
 
